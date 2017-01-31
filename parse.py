@@ -50,4 +50,4 @@ for x in content:
     print percentage(check, total)
     check = check + 1
 
-print parsed.loc[0]
+parsed.to_hdf('Federal 2000', 'parsed')
