@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Files irrelevant
+ICPSR_03496.zip
+03496-0001-Data.txt
