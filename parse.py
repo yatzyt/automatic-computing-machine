@@ -7,7 +7,8 @@ def rawbigcount(filename):
     return sum( buf.count(b'\n') for buf in bufgen if buf )
 
 def percentage(up, down):
-    print float(up)/float(down)*100, '%'
+    print up,'/',down, float(up)/float(down)*100, '%'
+	
 
 fname = "03496-0001-Data.txt"
 
@@ -23,31 +24,33 @@ parsed = pd.DataFrame({ 'Date of Birth':[], 'Gender':[], 'Race':[] ,'Current Sta
 check = 1
 
 for x in content:
-    y = {}
-    y.update({'Date of Birth': x[489:497]})
-    y.update({'Gender': x[497:498]})
-    y.update({'Race': x[488:489]})
-    y.update({'Current Status Supervision Status': []})
-    y.update({'# Priors': []})
-    y.update({'Drug Type': []})
-    y.update({'Drug Amount': []})
-    y.update({'Statutory Offense Grade': []})
-    y.update({'Type of Incarceration': []})
-    y.update({'Length of Incarceration': []})
-    y.update({'Restitution Amount': []})
-    y.update({'Height/Weight': []})
-    y.update({'Armed Career Criminal Status': x[417:418]})
-    y.update({'Career Offender Status': x[418:419]})
-    y.update({'Citizenship': x[419:422]})
-    y.update({'Education': x[435:437]})
-    y.update({'Marital Status': x[446:447]})
-    y.update({'Previous Sentencing Time': []})
-    y.update({'Cost of Bail': []})
-    y.update({'Warrants': []})
-    y.update({'District': x[402:404]})
+    y = {
+		'Date of Birth': x[489:497],
+		'Gender': x[497:498],
+		'Race': x[488:489],
+		'Current Status Supervision Status': 'NaN',
+		'# Priors': 'NaN',
+		'Drug Type': 'NaN',
+		'Drug Amount': 'NaN',
+		'Statutory Offense Grade': 'NaN',
+		'Type of Incarceration': 'NaN',
+		'Length of Incarceration': 'NaN',
+		'Restitution Amount': 'NaN',
+		'Height/Weight': 'NaN',
+		'Armed Career Criminal Status': x[417:418],
+		'Career Offender Status': x[418:419],
+		'Citizenship': x[419:422],
+		'Education': x[435:437],
+		'Marital Status': x[446:447],
+		'Previous Sentencing Time': 'NaN',
+		'Cost of Bail': 'NaN',
+		'Warrants': 'NaN',
+		'District': x[402:404]
+		}
     parsed.loc[-1] = y
     parsed.index = parsed.index + 1
-    print percentage(check, total)
+	#parsed.append(y, ignore_index=True)
+    percentage(check, total)
     check = check + 1
 
-parsed.to_hdf('Federal 2000', 'parsed')
+parsed.to_csv('Federal 2000')
