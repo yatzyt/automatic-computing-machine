@@ -18,11 +18,13 @@ def checkProb(check, p):
 
 def getIndex(p):
     r =  float(np.random.rand(1,1))
+ #   print r
     return checkProb(r, p)
 
 profile = {}
+#print type(profile)
 
-parsed = pd.read_csv('Federal 2000')
+parsed = pd.read_csv('Federal 2000 v2')
 
 attributes = list(parsed.columns.values)[1:]
 
@@ -34,13 +36,21 @@ for att in attributes:
     hist = parsed[att].value_counts()
     histograms.append(hist)
 
-for hist in histograms:
+for ind, hist in enumerate(histograms):
     name = hist.index.tolist()
+#    print ind, attributes[ind]
     values = hist.tolist()
     percent = []
-    if values: #pythonic af
-        percent = [int(x / total) for x in values]
-    prob = makeProb(percent)
-    index = getIndex(prob)
-    if not name[index] is ' ':# while loop to check for no ' '
-        profile[attributes[histograms.index(hist)]] = name[index]
+    if values:
+        percent = [float(x) / float(total) for x in values]
+        prob = makeProb(percent)
+        ###print prob
+        index = getIndex(prob)
+        while name[index] is ' ' or name[index] is '  ' or name[index] is '   ':
+            index = getIndex(prob)
+        profile[attributes[ind]] = name[index]
+    else:
+        #print attributes[ind]
+        profile[attributes[ind]] = 'NaN'
+
+print profile
