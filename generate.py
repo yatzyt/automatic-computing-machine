@@ -42,6 +42,7 @@ for ind, hist in enumerate(histograms):
         percent = [float(x) / float(total) for x in values]
         prob = makeProb(percent)
         index = getIndex(prob)
+        # random spaces in parsed
         while name[index] is ' ' or name[index] is '  ' or name[index] is '   ':
             index = getIndex(prob)
         if not 'Unnamed' in attributes[ind]:
