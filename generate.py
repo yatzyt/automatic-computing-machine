@@ -18,15 +18,13 @@ def checkProb(check, p):
 
 def getIndex(p):
     r =  float(np.random.rand(1,1))
- #   print r
     return checkProb(r, p)
 
 profile = {}
-#print type(profile)
 
 parsed = pd.read_csv('Federal 2000 v2')
 
-attributes = list(parsed.columns.values)[1:]
+attributes = list(parsed.columns.values)
 
 # number of profiles
 total = len(parsed[attributes[0]])
@@ -38,19 +36,18 @@ for att in attributes:
 
 for ind, hist in enumerate(histograms):
     name = hist.index.tolist()
-#    print ind, attributes[ind]
     values = hist.tolist()
     percent = []
     if values:
         percent = [float(x) / float(total) for x in values]
         prob = makeProb(percent)
-        ###print prob
         index = getIndex(prob)
         while name[index] is ' ' or name[index] is '  ' or name[index] is '   ':
             index = getIndex(prob)
-        profile[attributes[ind]] = name[index]
+        if not 'Unnamed' in attributes[ind]:
+            profile[attributes[ind]] = name[index]
     else:
-        #print attributes[ind]
         profile[attributes[ind]] = 'NaN'
 
-print profile
+for k, v in profile.items():
+    print k, ":", v
