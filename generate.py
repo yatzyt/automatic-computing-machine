@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import json
 
 # I should have used dictionaries here but I'm too lazy to rethink these methods so dictionaries work :D
 # jk i think pandas takes care of this for me
@@ -20,7 +21,7 @@ def getIndex(p):
     r =  float(np.random.rand(1,1))
     return checkProb(r, p)
 
-profile = {}
+
 
 parsed = pd.read_csv('Federal 2000 v2')
 
@@ -29,10 +30,14 @@ attributes = list(parsed.columns.values)
 # number of profiles
 total = len(parsed[attributes[0]])
 
+profiles = []
+
 histograms = []
 for att in attributes:
     hist = parsed[att].value_counts()
     histograms.append(hist)
+
+profile = {}
 
 for ind, hist in enumerate(histograms):
     name = hist.index.tolist()
@@ -46,9 +51,33 @@ for ind, hist in enumerate(histograms):
         while name[index] is ' ' or name[index] is '  ' or name[index] is '   ':
             index = getIndex(prob)
         if not 'Unnamed' in attributes[ind]:
-            profile[attributes[ind]] = name[index]
+            profile[attributes[ind]] = int(name[index])
     else:
         profile[attributes[ind]] = 'NaN'
 
-for k, v in profile.items():
-    print k, ":", v
+want_to_remove = []
+for k in profile.keys():
+    if profile[k] == 'NaN' or k == 'Date of Birth':
+        want_to_remove.append(k)
+
+
+for r in want_to_remove:
+    profile.pop(r)
+
+
+import os
+
+'''
+with open('profile.json', 'w') as f:
+    f.write(json.dumps([profile]))
+'''
+
+#'''
+with open('profile.json', 'r') as f:
+    loaded = json.loads(f.read())
+
+with open('profile.json', 'w') as f:
+    f.write(json.dumps(loaded + [profile]))
+    #f.write('\n')
+    #f.write(json.dumps(profile))
+#'''
