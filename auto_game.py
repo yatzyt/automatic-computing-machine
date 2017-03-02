@@ -23,7 +23,7 @@ def two_smallest(l):
     return smallest_ind, second_smallest_ind
 
 def decision_to_str(d):
-    if d == 0:
+    if d == 'Min':
         return 'minimum sentence. (MIN)'
     else:
         return 'maximum sentence. (MAX)'

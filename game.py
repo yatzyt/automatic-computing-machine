@@ -28,7 +28,7 @@ def two_smallest(l):
 
 
 def decision_to_str(d):
-    if d == 0:
+    if d == 'Min':
         return 'minimum sentence. (MIN)'
     else:
         return 'maximum sentence. (MAX)'
@@ -65,8 +65,9 @@ def round(attr_to_remove=None):
                     did_not_get_an_acceptable_answer = False
             #decisions.append(minmax[np.random.randint(0, 2)])
             print 'The decision made was', decision_to_str(decisions[i])
+            print decisions
             print
-        time.sleep(8)
+        #time.sleep(8)
 
     tree = DecisionTreeClassifier()
 
