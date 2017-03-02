@@ -6,6 +6,8 @@ import pandas as pd
 import keys
 
 
+#import biased_gen
+
 def makeProb(array):
     p = [array[0]]
     for i in range(len(array)-1):

@@ -66,7 +66,6 @@ citz = {
 74: "Iraq",
 75: "Ireland",
 76: "Kuwait",
-77: "OTHER country code",
 78: "Laos",
 79: "Liberia",
 80: "Malaysia",
@@ -447,6 +446,10 @@ def translate_int_to_string(name, int_val):
     return 'Other'    
 
 def translate_string_to_int(name, str_val):
+    if str_val == 'Other':
+        return -1
+    if name == 'Zipcode':
+        return str_val
     if name == 'Date of Birth':
         return dob_to_int(str_val)
     if name in attr:
@@ -454,5 +457,3 @@ def translate_string_to_int(name, str_val):
         if str_val in reverse_map:
             return reverse_map[str_val]
     raise Exception
-
-    

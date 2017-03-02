@@ -4,9 +4,9 @@ from sklearn.tree import DecisionTreeClassifier  # , export_graphviz
 import keys
 from more_gen import make_profile
 
-profile = make_profile()
-print profile
+profiles = []
 
-for name, v in profile.items():
-    print name, v
-    print keys.translate_int_to_string(name, v)
+for i in range(10):
+    profiles.append(make_profile())
+
+print "placeholder"
