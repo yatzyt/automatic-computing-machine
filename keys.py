@@ -417,14 +417,25 @@ months = {
     12: 'December'
 }
 
-def readable_dob(string_val):
+
+def readable_dob(string_val): #i forgot about negative step, oh well
     string_val += ' '
     if string_val[-5:-3] == '19':
         month = months[int(string_val[-7:-5])]
         return month + ' ' + string_val[-9:-7] + ', ' + string_val[-5:-1]
     else:
         month = months[int(string_val[-5:-3])]
-        return month + ' ' + string_val[--3:-1] + ', ' + string_val[-9:-5]
+        return month + ' ' + string_val[-3:-1] + ', ' + string_val[-9:-5]
+
+def dob_to_int(string_val): #Month Day, Year
+    reverse_month_map = {v: k for k,v in months.items()}
+    month_str, day_str, year_str = str.split(string_val)
+    day_str = str.split(day_str, ',')[0]
+    month_str = str(reverse_month_map[month_str])
+    if len(month_str) == 1:
+        month_str = '0' + month_str
+    return int(month_str+day_str+year_str)
+    
 
 
 def translate_int_to_string(name, int_val):
@@ -434,4 +445,14 @@ def translate_int_to_string(name, int_val):
         if int_val in attr[name]:
             return attr[name][int_val]
     return 'Other'    
+
+def translate_string_to_int(name, str_val):
+    if name == 'Date of Birth':
+        return dob_to_int(str_val)
+    if name in attr:
+        reverse_map = {v:k for k,v in attr[name].items()}
+        if str_val in reverse_map:
+            return reverse_map[str_val]
+    raise Exception
+
     
