@@ -96,6 +96,6 @@ for k, v in a_profile.items():
 
 a_X = np.array([a_X])
 
-print zip(clf.classes_, clf.predict_proba(x)[0])
+print zip(res_tree.classes_, res_tree.predict_proba(x)[0])
 
 print
