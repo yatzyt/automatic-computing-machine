@@ -44,12 +44,12 @@ def round(attr_to_remove = None):
         profile = remove_attr(attr_to_remove, profile)
         profiles.append(profile)        
         decisions.append(minmax[np.random.randint(0, 2)])
-        if len(profiles[0].keys()) > 3:
-            for k, v in profiles[i].items():
-                print k, ':', v        
-            print 'The decision made was', decision_to_str(decisions[i])
-            print
-        time.sleep(8)
+        #if len(profiles[0].keys()) > 3:
+        for k, v in profiles[i].items():
+            print k, ':', v        
+        print 'The decision made was', decision_to_str(decisions[i])
+        print
+        #time.sleep(8)
 
     tree = DecisionTreeClassifier()
 
@@ -68,13 +68,17 @@ def round(attr_to_remove = None):
 
     if len(profiles[0].keys()) <= 3:
         return tree
+    
+    print (zip(profiles[0].keys(), list(tree.feature_importances_)))
+    print
 
     feature_imp = list(tree.feature_importances_)
     to_remove = two_smallest(feature_imp) #index of those to remove
     removed = [profiles[0].keys()[i] for i in to_remove]
     for r in removed:
         print 'Removed', r
-    time.sleep(10)
+    #time.sleep(5)
+    print
     return removed
 
 #    for i in range(len(tree.feature_importances_)):
@@ -97,6 +101,10 @@ for k, v in a_profile.items():
 
 a_X = np.array([a_X])
 
-print zip(res_tree.classes_, res_tree.predict_proba(a_X)[0])
-
 print
+
+print zip(a_profile.keys(), list(res_tree.feature_importances_))
+print 
+for k, v in a_profile.items():
+    print k, ":", v
+print zip(res_tree.classes_, res_tree.predict_proba(a_X)[0])
