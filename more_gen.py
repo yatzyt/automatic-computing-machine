@@ -14,6 +14,7 @@ def checkProb(check, p):
     for i in p:
         if check <= i:
             return p.index(i)
+    #return p.index
     raise Exception(check)
     #'check should not be greater than 1')
 
@@ -40,7 +41,7 @@ def getZipCode(race):
 parsed = pd.read_csv('data.csv', low_memory=False, index_col=0)
 
 attributes = list(parsed.columns.values)
-print (attributes)
+#print (attributes)
 
 # number of profiles
 total = len(parsed[attributes[0]])
@@ -49,7 +50,9 @@ profiles = []
 
 histograms = []
 for att in attributes:
+    #print (att, len(parsed[att]))
     hist = parsed[att].value_counts()
+    #print (sum(hist.tolist()))  
     histograms.append(hist)
 
 #print (parsed['Career Offender Status'])
@@ -63,14 +66,14 @@ for ind, hist in enumerate(histograms):
     values = hist.tolist()
     percent = []
     if values:
-        percent = [float(x) / float(total) for x in values]
+        percent = [float(x) / float(len(values)) for x in values]
         prob = makeProb(percent)
         index = getIndex(prob)
         # random spaces in parsed
         while name[index] == ' ' or name[index] == '  ' or name[index] == '   ':
             index = getIndex(prob)
-        if hist.name == 'Date of Birth':
-            print (name[index])
+        #if hist.name == 'Date of Birth':
+            #print (name[index])
         actual_readable_thing = keys.translate_int_to_string(hist.name, int(name[index]))
         profile[attributes[ind]] = actual_readable_thing
         if hist.name == 'Race':
@@ -92,10 +95,11 @@ for r in want_to_remove:
 '''
 with open('profile_2.json', 'w') as f:
     f.write(json.dumps([profile]))
-'''
+
 
 with open('profile_2.json', 'r') as f:
     loaded = json.loads(f.read())
 
 with open('profile_2.json', 'w') as f:
     f.write(json.dumps(loaded + [profile]))
+    '''
