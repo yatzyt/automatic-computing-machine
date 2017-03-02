@@ -40,6 +40,33 @@ def getZipCode(race):
     else:
         return 45100
 
+month_to_day = {
+    31: [1,3,5,7,8,10,11], 
+    30: [4,6,9,11]
+}
+
+def make_dob(): # year + month + day
+    year = np.random.randint(1920, 2001)
+    month = np.random.randint(1,13)
+    day = 0
+    if month in month_to_day[31]:
+        day = np.random.randint(1,32)
+    elif month in month_to_day[30]:
+        day = np.random.randint(1,31)
+    else:
+        if year % 4 == 0:
+            day = np.random.randint(1,30) # potential leap day
+        else:
+            day = np.random.randint(1,29)
+    year = str(year)
+    if month < 10:
+        month = "0" + str(month)
+    else: month = str(month)
+    if day < 10:
+        day = "0" + str(day)
+    else: day = str(day)
+    return year+month+day
+
 
 def make_profile():
     parsed = pd.read_csv('data.csv', low_memory=False, index_col=0)
@@ -48,7 +75,7 @@ def make_profile():
     #print (attributes)
 
     # number of profiles
-    total = len(parsed[attributes[0]])
+    #total = len(parsed[attributes[0]])
 
     histograms = []
     for att in attributes:
@@ -64,23 +91,30 @@ def make_profile():
 
     # ind is index
     for ind, hist in enumerate(histograms):
+        #len_of_att = len(parsed[attributes[attributes.index(hist.name)]])
         name = hist.index.tolist()
         values = hist.tolist()
         percent = []
         if values:
-            percent = [float(x) / float(len(values)) for x in values]
-            prob = makeProb(percent)
-            index = getIndex(prob)
-            # random spaces in parsed
-            while name[index] == ' ' or name[index] == '  ' or name[index] == '   ':
+            if hist.name != 'Date of Birth':
+                percent = [float(x) / float(sum(values)) for x in values]
+                prob = makeProb(percent)
                 index = getIndex(prob)
+            # random spaces in parsed
+                while name[index] == ' ' or name[index] == '  ' or name[index] == '   ':
+                    index = getIndex(prob)
             #if hist.name == 'Date of Birth':
                 #print (name[index])
-            actual_readable_thing = keys.translate_int_to_string(hist.name, int(name[index]))
-            profile[attributes[ind]] = actual_readable_thing
-            if hist.name == 'Race':
-                zip = getZipCode(int(name[index]))
-                profile['Zipcode'] = zip
+                actual_readable_thing = keys.translate_int_to_string(hist.name, int(name[index]))
+                profile[attributes[ind]] = actual_readable_thing
+                if hist.name == 'Race':
+                    zip = getZipCode(int(name[index]))
+                    profile['Zipcode'] = zip
+            else:
+                dob = make_dob()
+                readable_dob = keys.translate_int_to_string(hist.name, dob)
+                profile[attributes[ind]] = readable_dob
+
         else:
             profile[attributes[ind]] = 'NaN'
 
@@ -94,6 +128,8 @@ def make_profile():
         profile.pop(r)
     
     return profile
+
+make_profile()
 
 #print(profile)
 '''
