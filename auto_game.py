@@ -47,7 +47,7 @@ def round(attr_to_remove = None):
         if len(profiles[0].keys()) > 3:
             for k, v in profiles[i].items():
                 print k, ':', v        
-            print 'The decision made was', decision_to_str(decisions[0])
+            print 'The decision made was', decision_to_str(decisions[i])
             print
         time.sleep(8)
 
