@@ -19,7 +19,7 @@ file = open(fname, "r")
 content = file.readlines()
 content = [x.rstrip("\n") for x in content]
 
-parsed = pd.DataFrame({ 'Date of Birth':[], 'Gender':[], 'Race':[] ,'Current Status Supervision Status':[], '# Priors':[], 'Drug Type':[], 'Drug Amount':[], 'Statutory Offense Grade':[], 'Type of Incarceration':[], 'Length of Incarceration':[], 'Restitution Amount':[], 'Height/Weight':[], 'Armed Career Criminal Status Applied':[], 'Career Offender Status Applied':[], 'Citizenship':[], 'Education':[], 'Marital Status':[], 'Previous Sentencing Time':[], 'Cost of Bail':[], 'Warrants':[], 'District':[] })
+parsed = pd.DataFrame({ 'Date of Birth':[], 'Gender':[], 'Race':[] ,'Current Status Supervision Status':[], '# Priors':[], 'Drug Type':[], 'Drug Amount':[], 'Statutory Offense Grade':[], 'Type of Incarceration':[], 'Length of Incarceration':[], 'Restitution Amount':[], 'Height/Weight':[], 'Armed Career Criminal Status':[], 'Career Offender Status':[], 'Citizenship':[], 'Education':[], 'Marital Status':[], 'Previous Sentencing Time':[], 'Cost of Bail':[], 'Warrants':[], 'District':[], 'Offense':[] })
 
 check = 1
 
@@ -28,24 +28,25 @@ for x in content:
 		'Date of Birth': x[489:497],
 		'Gender': x[497:498],
 		'Race': x[488:489],
-		'Current Status Supervision Status': 'NaN',
-		'# Priors': 'NaN',
-		'Drug Type': 'NaN',
-		'Drug Amount': 'NaN',
-		'Statutory Offense Grade': 'NaN',
-		'Type of Incarceration': 'NaN',
-		'Length of Incarceration': 'NaN',
-		'Restitution Amount': 'NaN',
-		'Height/Weight': 'NaN',
+		'Current Status Supervision Status': '',
+		'# Priors': '',
+		'Drug Type': '',
+		'Drug Amount': '',
+		'Statutory Offense Grade': '',
+		'Type of Incarceration': '',
+		'Length of Incarceration': '',
+		'Restitution Amount': '',
+		'Height/Weight': '',
 		'Armed Career Criminal Status': x[417:418],
 		'Career Offender Status': x[418:419],
 		'Citizenship': x[419:422],
 		'Education': x[435:437],
 		'Marital Status': x[446:447],
-		'Previous Sentencing Time': 'NaN',
-		'Cost of Bail': 'NaN',
-		'Warrants': 'NaN',
-		'District': x[402:404]
+		'Previous Sentencing Time': '',
+		'Cost of Bail': '',
+		'Warrants': '',
+		'District': x[402:404],
+		'Offense': x[354:356]
 		}
     parsed.loc[-1] = y
     parsed.index = parsed.index + 1
@@ -53,4 +54,4 @@ for x in content:
     percentage(check, total)
     check = check + 1
 
-parsed.to_csv('Federal 2000')
+parsed.to_csv('data_2.csv')
