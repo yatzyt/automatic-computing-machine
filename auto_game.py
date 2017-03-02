@@ -49,7 +49,7 @@ def round(attr_to_remove = None):
                 print k, ':', v        
             print 'The decision made was', decision_to_str(decisions[0])
             print
-        #time.sleep(8)
+        time.sleep(8)
 
     tree = DecisionTreeClassifier()
 
@@ -74,6 +74,7 @@ def round(attr_to_remove = None):
     removed = [profiles[0].keys()[i] for i in to_remove]
     for r in removed:
         print 'Removed', r
+    time.sleep(10)
     return removed
 
 #    for i in range(len(tree.feature_importances_)):
