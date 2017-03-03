@@ -70,25 +70,25 @@ def make_dob(): # year + month + day
     return year+month+day
 
 
+
+parsed = pd.read_csv('data.csv', low_memory=False, index_col=0)
+
+attributes = list(parsed.columns.values)
+#print (attributes)
+
+# number of profiles
+#total = len(parsed[attributes[0]])
+
+histograms = []
+for att in attributes:
+    #print (att, len(parsed[att]))
+    hist = parsed[att].value_counts()
+    #print (sum(hist.tolist()))  
+    histograms.append(hist)
+
+#print (parsed['Career Offender Status'])
+
 def make_profile():
-    parsed = pd.read_csv('data.csv', low_memory=False, index_col=0)
-
-    attributes = list(parsed.columns.values)
-    #print (attributes)
-
-    # number of profiles
-    #total = len(parsed[attributes[0]])
-
-    histograms = []
-    for att in attributes:
-        #print (att, len(parsed[att]))
-        hist = parsed[att].value_counts()
-        #print (sum(hist.tolist()))  
-        histograms.append(hist)
-
-    #print (parsed['Career Offender Status'])
-
-
     profile = {}
 
     # ind is index
