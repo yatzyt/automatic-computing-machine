@@ -151,7 +151,7 @@ def make_prior():
     percent = [float(x) / float(sum(vals_s)) for x in vals_s]
     prob = makeProb(percent)
     ind_s = getIndex(prob)
-
+    
     return name_f[ind_f], name_v[ind_v], name_d[ind_d], name_s[ind_s]
 
 
