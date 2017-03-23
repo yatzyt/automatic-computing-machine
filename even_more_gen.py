@@ -194,6 +194,9 @@ def make_profile():
     race = make_race()
     readable_race = keys.translate_int_to_string("Race", race)
     profile['Race'] = readable_race
+    
+    # Makes the zipcode
+    profile['Zipcode'] = getZipCode(race)
 
     # Makes the Employment rating
     emp = make_emp()
