@@ -10,6 +10,8 @@ Make sure you have Python 2.7+ (https://www.python.org/downloads/) installed, al
 
 - NumPy 1.11.3 or higher (https://www.scipy.org/scipylib/download.html)
 
+- SciPi 0.9 or higher (https://www.scipy.org/install.html)
+
 - pandas 0.19.2 or higher (https://pypi.python.org/pypi/pandas/)
 
 - scikit-learn 0.18.1 or higher (http://scikit-learn.org/stable/install.html)
