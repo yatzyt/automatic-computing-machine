@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor  # , export_graphviz
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
 import time
 
 import keys
@@ -116,6 +116,8 @@ def pre_round_5(profiles, tree_X, tree_y):
     tree = DecisionTreeClassifier(max_depth=DEPTH)
     tree.fit(tree_X, tree_y)
     predictions = tree.predict_proba(round_helper(profiles))
+    
+    export_graphviz(tree, out_file='round5.dot')
 
     return predictions
 

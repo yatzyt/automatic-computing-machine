@@ -99,7 +99,8 @@ def dob_to_int(string_val): #Month Day, Year
     month_str = str(reverse_month_map[month_str])
     if len(month_str) == 1:
         month_str = '0' + month_str
-    return int(month_str+day_str+year_str)
+    return 2016 - int(year_str)
+    #return int(month_str+day_str+year_str)
     
 
 
