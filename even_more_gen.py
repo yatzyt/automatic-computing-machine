@@ -107,6 +107,32 @@ def make_off():
     my_r = np.random.randint(1, high=9)
     return my_r
 
+off_min_times = {
+	1: 0,
+	2: 0,
+	3: 0,
+	4: 0,
+	5: 0,
+	6: 0,
+	7: 0,
+	8: 0
+}
+
+off_max_times = {
+    1: 0,
+	2: 0,
+	3: 0,
+	4: 0,
+	5: 0,
+	6: 0,
+	7: 0,
+	8: 0
+}
+
+
+def make_times(offense):
+    return off_min_times[offense], off_max_times[offense]
+
 def make_race():
     r = make_race_hist()
     vals = r.tolist()
@@ -189,6 +215,11 @@ def make_profile():
     off = make_off()
     readable_off = keys.translate_int_to_string("Offense", off)
     profile['Offense'] = readable_off
+
+    # Gives the max and min sentence for the Offense
+    min_time, max_time = make_times(off)
+    profile['Min'] = min_time
+    profile['Max'] = max_time
 
     # Makes the race
     race = make_race()

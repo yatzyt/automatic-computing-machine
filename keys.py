@@ -125,4 +125,6 @@ def translate_string_to_int(name, str_val):
         reverse_map = {v:k for k,v in attr[name].items()}
         if str_val in reverse_map:
             return reverse_map[str_val]
+    if name == 'Min' or name == 'Max':
+        return str_val
     raise Exception
