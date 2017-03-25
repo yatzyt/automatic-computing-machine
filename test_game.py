@@ -19,6 +19,7 @@ print 'Round 1 done\n'
 
 # round 2
 round_2_profs = make_prof(attrs_to_rmv = attr_to_remove, n_rep=big_n)
+print round_2_profs[0]
 round_2_swipes = make_swipes(big_n)
 attr_to_remove += round_2(round_2_profs, round_2_swipes)
 
@@ -28,6 +29,7 @@ print 'Round 2 done\n'
 # round 3
 
 round_3_profs = make_prof(attrs_to_rmv = attr_to_remove, n_rep=big_n)
+print round_3_profs[0]
 round_3_swipes = make_swipes(big_n)
 X, y = round_3(round_3_profs, round_3_swipes)
 
@@ -46,6 +48,7 @@ X, y = round_4(round_4_profs, round_4_swipes, X, y)
 print 'Round 4 done\n'
     
 round_5_profs = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=5)
+print round_5_profs[0]
 round_5_swipes = make_swipes(big_n)
 
 print 'Round 5 done\n'
