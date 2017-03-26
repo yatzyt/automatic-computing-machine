@@ -44,7 +44,7 @@ month_to_day = {
 }
 
 def make_dob(): # year + month + day
-    year = np.random.randint(1920, 2001)
+    year = np.random.randint(1950, 2001)
     month = np.random.randint(1,13)
     day = 0
     if month in month_to_day[31]:
