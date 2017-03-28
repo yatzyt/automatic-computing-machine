@@ -43,8 +43,10 @@ month_to_day = {
     30: [4,6,9,11]
 }
 
+hc_years = [18, 20, 25, 30, 35, 40, 45, 50]
+
 def make_dob(): # year + month + day
-    year = np.random.randint(1920, 2001)
+    year = 2016 - hc_years[ np.random.randint(0, 8) ] 
     month = np.random.randint(1,13)
     day = 0
     if month in month_to_day[31]:
