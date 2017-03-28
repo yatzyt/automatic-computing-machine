@@ -48,8 +48,8 @@ race = {
 2: "Black",
 3: "American Indian or Alaskan Native",
 4: "Asian or Pacific Islander",
-7: "Other",
-9: "Other"
+7: "Hispanic",
+9: "Hispanic"
 }
 
 emp = {
