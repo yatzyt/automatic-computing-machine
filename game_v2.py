@@ -144,9 +144,11 @@ def pre_round_4(profiles, tree_X, tree_y):
     
     temp_min = []
     temp_max = []
+    temp_file_name = [] 
     for p in profiles:
         temp_min.append(p['Min'])
         temp_max.append(p['Max'])
+        temp_file_name.append(p['File Name'])
         del p['Min']
         del p['Max']
         del p['File Name']
@@ -157,6 +159,7 @@ def pre_round_4(profiles, tree_X, tree_y):
     for ind, p in enumerate(profiles):
         p['Min'] = temp_min[ind]
         p['Max'] = temp_max[ind]
+        p['File Name'] = temp_file_name[ind]
     
     return extract_proba(predictions)
 
@@ -172,7 +175,7 @@ def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num
         #print i
 	
     if round_num == 5:
-		profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max']} for p in profs]
+		profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max'], 'File Name': p['File Name']} for p in profs]
 		return profs_5
 	
     return profs
@@ -183,7 +186,7 @@ def round_4(profiles, swipes, tree_X, tree_y):
         del p['Min']
         del p['Max']
         del p['Prediction']
-        #del p['File Name']
+        del p['File Name']
 
     # makes the decision tree
     tree = DecisionTreeClassifier(max_depth=DEPTH)
@@ -210,9 +213,11 @@ def pre_round_5(profiles, tree_X, tree_y):
 
     temp_min = []
     temp_max = []
+    temp_file_name = []
     for p in profiles:
         temp_min.append(p['Min'])
         temp_max.append(p['Max'])
+        temp_file_name.append(p['File Name'])
         del p['Min']
         del p['Max']
         del p['File Name']
@@ -222,6 +227,7 @@ def pre_round_5(profiles, tree_X, tree_y):
     for ind, p in enumerate(profiles):
         p['Min'] = temp_min[ind]
         p['Max'] = temp_max[ind]
+        p['File Name'] = temp_file_name[ind]
     
     #print profiles[0].keys()
     export_graphviz(tree, out_file='round5.dot')
