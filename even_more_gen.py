@@ -182,7 +182,53 @@ def make_prior():
     
     return name_f[ind_f], name_v[ind_v], name_d[ind_d], name_s[ind_s]
 
+def make_image_name(id_num):
+    return 'mugshot' + str(id_num) + 'f.png'
 
+id_to_name = { 
+    #(age, gender, race)
+    #gender: 1 = female, 0 = male
+    #race: 1 = white, 2 = black, 3 = amer ind, 4 = asian, 9 = hisp
+    (18,0,1):[2],
+    (18,0,4):[6],
+    (18,0,3):[18],
+    (18,0,2):[30],
+    (20,0,1):[1, 3, 17, 22],
+    (20,1,1):[10],
+    (20,0,2):[29, 35],
+    (20,0,9):[38],
+    (25,1,1):[4],
+    (25,0,1):[5, 12, 20],
+    (25,0,4):[7, 40, 48],
+    (25,0,2):[26],
+    (25,0,9):[31, 33, 42, 43],
+    (25,1,2):[36, 50],
+    (30,0,1):[9, 24],
+    (30,0,2):[28, 34, 49],
+    (30,0,4):[37, 39],
+    (35,0,1):[15, 21, 25],
+    (35,0,4):[44],
+    (40,0,1):[13, 16],
+    (40,0,4):[23],
+    (40,0,9):[32],
+    (40,1,9):[45],
+    (45,0,2):[27],
+    (45,0,9):[41],
+    (45,0,4):[47],
+    (50,0,1):[8, 11, 46],
+    (50,1,1):[14],
+    (50,0,4):[19],
+}
+
+
+def make_image(prof):
+    p_age = keys.translate_string_to_int('Date of Birth', prof['Date of Birth'])
+    p_race = keys.translate_string_to_int('Race', prof['Race'])
+    p_gender = keys.translate_string_to_int('Gender', prof['Gender'])
+    p_id = (p_age, p_gender, p_race)
+    image_name_arr = id_to_name[p_id]
+    return make_image_name(image_name_arr[np.random.randint(len(image_name_arr))])
+    
 attributes = ['Citizenship', 'Education', 'Gender', 'Marital Status', 'Offense', 'Race', 'Employment', 'Prior felonies', 'Prior violent felonies', 'Prior drug offense', 'Prior sex offenses']
 
 def make_profile():
@@ -248,5 +294,7 @@ def make_profile():
 
     # Makes the Prior sex offenses
     profile['Prior sex offenses'] = p_s
+
+    profile['File Name'] = make_image(profile)
 
     return profile

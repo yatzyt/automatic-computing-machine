@@ -56,7 +56,7 @@ def make_gender_hist():
 def make_race_hist():
     r_h = parsed['Race'].value_counts()
     del r_h[' ']
-	r_h['9'] *= 5
+    r_h['9'] *= 5
     return r_h
 
 def make_ms_hist():
