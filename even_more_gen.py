@@ -66,7 +66,7 @@ def make_dob(): # year + month + day
         day = "0" + str(day)
     else: day = str(day)
     return year+month+day
-
+	
 def make_citz():
     my_r = np.random.randint(1, high=101)
     if my_r <= 70:
@@ -220,13 +220,20 @@ id_to_name = {
     (50,0,4):[19],
 }
 
+def make_race_and_gen(age):
+    curr_range = [x[1:] for x in id_to_name.keys() if x[0] == age]
+    #print curr_range, age
+    return curr_range[np.random.randint(len(curr_range))]
 
 def make_image(prof):
     p_age = keys.translate_string_to_int('Date of Birth', prof['Date of Birth'])
     p_race = keys.translate_string_to_int('Race', prof['Race'])
     p_gender = keys.translate_string_to_int('Gender', prof['Gender'])
     p_id = (p_age, p_gender, p_race)
-    image_name_arr = id_to_name[p_id]
+    if p_id in id_to_name:
+        image_name_arr = id_to_name[p_id]
+    else:
+        return 'Error'
     return make_image_name(image_name_arr[np.random.randint(len(image_name_arr))])
     
 attributes = ['Citizenship', 'Education', 'Gender', 'Marital Status', 'Offense', 'Race', 'Employment', 'Prior felonies', 'Prior violent felonies', 'Prior drug offense', 'Prior sex offenses']
@@ -250,9 +257,17 @@ def make_profile():
     profile['Education'] = readable_edu
 
     # Makes the gender
-    gen = make_gen()
+    gen, race = make_race_and_gen(keys.translate_string_to_int('Date of Birth', readable_dob))
     readable_gen = keys.translate_int_to_string("Gender", gen)
     profile['Gender'] = readable_gen
+
+    # Makes the race
+    readable_race = keys.translate_int_to_string("Race", race)
+    profile['Race'] = readable_race
+
+    # Makes the image name
+    image_name = make_image(profile)
+    profile['File Name'] = image_name
 
     # Makes the Marital Status
     ms = make_ms()
@@ -268,11 +283,6 @@ def make_profile():
     min_time, max_time = make_times(off)
     profile['Min'] = min_time
     profile['Max'] = max_time
-
-    # Makes the race
-    race = make_race()
-    readable_race = keys.translate_int_to_string("Race", race)
-    profile['Race'] = readable_race
     
     # Makes the zipcode
     profile['Zipcode'] = getZipCode(race)
@@ -295,6 +305,5 @@ def make_profile():
     # Makes the Prior sex offenses
     profile['Prior sex offenses'] = p_s
 
-    profile['File Name'] = make_image(profile)
 
     return profile

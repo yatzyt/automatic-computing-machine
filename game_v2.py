@@ -34,6 +34,7 @@ def round_1(profiles, swipes):
     for p in profiles:
         del p['Min']
         del p['Max']
+        del p['File Name']
 
     # makes the decision tree
     tree = DecisionTreeClassifier(max_depth=DEPTH)
@@ -61,6 +62,7 @@ def round_2(profiles, swipes):
     for p in profiles:
         del p['Min']
         del p['Max']
+        del p['File Name']
 
     # makes the decision tree
     tree = DecisionTreeClassifier(max_depth=DEPTH)
@@ -88,6 +90,7 @@ def round_3(profiles, swipes):
     for p in profiles:
         del p['Min']
         del p['Max']
+        del p['File Name']
 
     # makes the decision tree
     tree = DecisionTreeClassifier(max_depth=DEPTH)
@@ -146,6 +149,7 @@ def pre_round_4(profiles, tree_X, tree_y):
         temp_max.append(p['Max'])
         del p['Min']
         del p['Max']
+        del p['File Name']
 
     pp = round_helper(profiles)
     
@@ -179,6 +183,7 @@ def round_4(profiles, swipes, tree_X, tree_y):
         del p['Min']
         del p['Max']
         del p['Prediction']
+        #del p['File Name']
 
     # makes the decision tree
     tree = DecisionTreeClassifier(max_depth=DEPTH)
@@ -210,6 +215,7 @@ def pre_round_5(profiles, tree_X, tree_y):
         temp_max.append(p['Max'])
         del p['Min']
         del p['Max']
+        del p['File Name']
 
     predictions = tree.predict_proba(round_helper(profiles))
 
