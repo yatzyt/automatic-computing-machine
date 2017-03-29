@@ -129,11 +129,28 @@ def round_helper(profiles):
     return np.array(profiles_for_tree)
 
 
-def extract_proba(pred):
+def extract_proba(pred, flag, value):
     pred_ret = []
-    for p in pred:
-        pred_ret.append(int(p[1] * 10))
+    if flag:
+        if value == 1:
+            for p in pred:
+                pred_ret.append(int(p[0] * 10))
+        elif value == 0:
+            for p in pred:
+                pred_ret.append(10 - int(p[0] * 10))
+        else:
+            raise Exception("There was non 0 or 1 input")
+    else:
+        for p in pred:
+            pred_ret.append(int(p[1] * 10))
     return pred_ret
+
+def check_y_is_single(tree_y):
+    curr = tree_y[0]
+    for i in tree_y:
+        if curr != i:
+            return False, curr
+    return True, curr
 
 '''
 Uses the X and y returned from round 3, and returns the predicted score for round 4 to display
@@ -141,6 +158,8 @@ Uses the X and y returned from round 3, and returns the predicted score for roun
 def pre_round_4(profiles, tree_X, tree_y):
     tree = DecisionTreeClassifier(max_depth=DEPTH)
     tree.fit(tree_X, tree_y)
+
+    single_y_flag, single_y_value = check_y_is_single(tree_y)
     
     temp_min = []
     temp_max = []
@@ -161,7 +180,7 @@ def pre_round_4(profiles, tree_X, tree_y):
         p['Max'] = temp_max[ind]
         p['File Name'] = temp_file_name[ind]
     
-    return extract_proba(predictions)
+    return extract_proba(predictions, single_y_flag, single_y_value)
 
 def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num=4):
     profs = make_prof(attrs_to_rmv, n_rep)
@@ -211,6 +230,8 @@ def pre_round_5(profiles, tree_X, tree_y):
     tree = DecisionTreeClassifier(max_depth=DEPTH)
     tree.fit(tree_X, tree_y)
 
+    single_y_flag, single_y_value = check_y_is_single(tree_y)
+
     temp_min = []
     temp_max = []
     temp_file_name = []
@@ -232,5 +253,5 @@ def pre_round_5(profiles, tree_X, tree_y):
     #print profiles[0].keys()
     export_graphviz(tree, out_file='round5.dot')
 
-    return extract_proba(predictions)
+    return extract_proba(predictions, single_y_flag, single_y_value)
 
