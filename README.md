@@ -28,7 +28,7 @@ http://campusguides.lib.utah.edu/c.php?g=493509&p=3376346
 
 Promotional Website:
 
-https://www.justiceexe.com
+http://www.justiceexe.com
 
 Google Play Store:
 
