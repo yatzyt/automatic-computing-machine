@@ -93,3 +93,20 @@ ENV/
 *.txt
 *.pdf
 .vscode/
+Federal 2000
+Federal 2000 v2
+add_attr.py
+auto_game.py
+data - Copy.csv
+data_2 - Copy.csv
+data_2.csv
+felonies.py
+game.py
+generate.py
+helper.py
+more_gen.py
+more_parse.py
+parse.py
+profile.json
+profile_2.json
+round5.dot

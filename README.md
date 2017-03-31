@@ -18,6 +18,19 @@ Make sure you have Python 2.7+ (https://www.python.org/downloads/) installed, al
 
 ### Running
 
-Clone the repository, then to see a demonstration of the game in action, run `python auto_game.py`.
+Clone the repository, then run `python test_game.py` for an example run.
 
-To actually experience the game yourself, run `python game.py`.
+### Our Websites
+
+Library Subject Guide:
+
+http://campusguides.lib.utah.edu/c.php?g=493509&p=3376346
+
+Promotional Website:
+
+https://www.justiceexe.com
+
+Google Play Store:
+
+https://play.google.com/store/apps/details?id=com.WhenMachinesDecide.Justicexe&hl=en
+
