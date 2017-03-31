@@ -54,6 +54,13 @@ def round_1(profiles, swipes):
     # figures out what attributes to remove
     feature_imp = tree.feature_importances_
     to_remove = feature_imp.argsort()[:NUM_ATTR_TO_REMOVE_ROUND_1]  # getting the index of those to remove
+
+    for ind, tr in enumerate(to_remove):
+        if profiles[0].keys()[tr] == 'Offense':
+            to_remove = np.delete(to_remove, ind, 0)
+            next_in_line = np.array([feature_imp.argsort()[NUM_ATTR_TO_REMOVE_ROUND_1]])
+            to_remove = np.append(to_remove, next_in_line, 0)
+
     removed = [profiles[0].keys()[i] for i in to_remove]
 
     return removed
@@ -82,6 +89,13 @@ def round_2(profiles, swipes):
     # figures out what attributes to remove
     feature_imp = tree.feature_importances_
     to_remove = feature_imp.argsort()[:NUM_ATTR_TO_REMOVE_ROUND_2]  # getting the index of those to remove
+
+    for ind, tr in enumerate(to_remove):
+        if profiles[0].keys()[tr] == 'Offense':
+            to_remove = np.delete(to_remove, ind, 0)
+            next_in_line = np.array([feature_imp.argsort()[NUM_ATTR_TO_REMOVE_ROUND_2]])
+            to_remove = np.append(to_remove, next_in_line, 0)
+
     removed = [profiles[0].keys()[i] for i in to_remove]
 
     return removed
