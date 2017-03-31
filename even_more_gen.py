@@ -226,7 +226,6 @@ def make_race_and_gen(age):
         if x[0] == age:
             for _ in range(len(id_to_name[x])):
                 curr_range.append(x[1:])
-    print curr_range, age
     return curr_range[np.random.randint(len(curr_range))]
 
 def make_image(prof):
