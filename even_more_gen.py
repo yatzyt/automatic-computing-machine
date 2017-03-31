@@ -221,8 +221,12 @@ id_to_name = {
 }
 
 def make_race_and_gen(age):
-    curr_range = [x[1:] for x in id_to_name.keys() if x[0] == age]
-    #print curr_range, age
+    curr_range = []
+    for x in id_to_name.keys():
+        if x[0] == age:
+            for _ in range(len(id_to_name[x])):
+                curr_range.append(x[1:])
+    print curr_range, age
     return curr_range[np.random.randint(len(curr_range))]
 
 def make_image(prof):

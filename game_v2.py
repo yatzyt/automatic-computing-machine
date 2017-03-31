@@ -146,6 +146,9 @@ def extract_proba(pred, flag, value):
     return pred_ret
 
 def check_y_is_single(tree_y):
+    '''
+    This function checks to see if an array y has all the same values in the array, and returns True if it does, and returns the value along with it.
+    '''
     curr = tree_y[0]
     for i in tree_y:
         if curr != i:
