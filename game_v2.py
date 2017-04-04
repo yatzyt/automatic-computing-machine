@@ -190,32 +190,41 @@ def pre_round_4(profiles, tree_X, tree_y):
         del p['Max']
         del p['File Name']
 
+    #print profiles[0].keys()
     pp = round_helper(profiles)
     
     predictions = tree.predict_proba(pp)#[tree.predict(pre_round_helper(p)) for p in profiles]
+
+    importances = sorted(zip(tree.feature_importances_, profiles[0].keys()), reverse=True)
+    imp_ret = []
+    for i in importances:
+        imp_ret.append(i[1])    
+
     for ind, p in enumerate(profiles):
         p['Min'] = temp_min[ind]
         p['Max'] = temp_max[ind]
-        p['File Name'] = temp_file_name[ind]
+        p['File Name'] = temp_file_name[ind]    
     
-    return extract_proba(predictions, single_y_flag, single_y_value)
+    return extract_proba(predictions, single_y_flag, single_y_value), imp_ret
 
 def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num=4):
     profs = make_prof(attrs_to_rmv, n_rep)
+
     pred = []
     if round_num == 4:
-        pred = pre_round_4(profs, tree_X, tree_y)
+        pred, imp_ret = pre_round_4(profs, tree_X, tree_y)
     else:
         pred = pre_round_5(profs, tree_X, tree_y)
     for i in range(len(profs)):
         profs[i]['Prediction'] = pred[i]
         #print i
-	
+
+
     if round_num == 5:
 		profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max'], 'File Name': p['File Name']} for p in profs]
-		return profs_5#, profs
+		return profs_5  #, profs
 	
-    return profs
+    return profs, int_ret
 
 def round_4(profiles, swipes, tree_X, tree_y):
     #assuming client has displayed the profiles, and we have the swipes to work with

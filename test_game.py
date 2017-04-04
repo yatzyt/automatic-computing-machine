@@ -43,7 +43,7 @@ X, y = round_3(round_3_profs, round_3_swipes)
 #    print "X and y exist\n"
 print 'Round 3 done\n'
 
-round_4_profs = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=4)
+round_4_profs, test_tree = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=4)
 print round_4_profs[0]
 round_4_swipes = make_swipes(big_n)
 X, y = round_4(round_4_profs, round_4_swipes, X, y)
