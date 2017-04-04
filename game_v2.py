@@ -211,6 +211,8 @@ def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num
     profs = make_prof(attrs_to_rmv, n_rep)
 
     pred = []
+    int_ret = []
+
     if round_num == 4:
         pred, imp_ret = pre_round_4(profs, tree_X, tree_y)
     else:
@@ -330,13 +332,22 @@ def endgame(profiles, swipes):
         for name, count in counts.items():
             if count >= max_count:
                 max_count = count
-                max_name = name
+                max_name = str(name).lower()
             if count <= min_count:
                 min_count = count
-                min_name = name
-        if attr == 'Date of Birth':
-            attr = 'age'
-        return_strings.append('You tend to sentence people with a(n) ' + attr.lower() + ' of ' + str(max_name).lower() + ' harsher.')
-        return_strings.append('You tend to sentence people with a(n) ' + attr.lower() + ' of ' + str(min_name).lower() + ' lighter.')
+                min_name = str(name).lower()
+
+        if 'ged' in min_name:
+            ged_ind = min_name.find('ged')
+            min_name = min_name[:ged_ind] + min_name[ged_ind:ged_ind+3].upper() + min_name[ged_ind+3:]
+
+        if 'ged' in max_name:
+            ged_ind = max_name.find('ged')
+            max_name = max_name[:ged_ind] + max_name[ged_ind:ged_ind+3].upper() + max_name[ged_ind+3:]
+        
+        if max_count - min_count > 5:
+            return_strings.append('You tend to sentence people with a(n) ' + attr.lower() + ' of ' + max_name + ' harsher, and a(n) '+ attr.lower() + ' of ' + min_name + ' lighter.')
+        else:
+            return_strings.append('You were more or less impartial towards these people\'s ' + attr.lower() +'.')
 
     return return_strings
