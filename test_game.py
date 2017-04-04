@@ -65,3 +65,5 @@ swip_test = [round_1_swipes, round_2_swipes, round_3_swipes, round_4_swipes]
 
 # this returns a list of strings
 strings_to_send = endgame(prof_test, swip_test)
+for s in strings_to_send:
+    print s

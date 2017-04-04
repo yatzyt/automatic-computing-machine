@@ -234,7 +234,7 @@ def make_race_and_gen(age):
     return curr_range[np.random.randint(len(curr_range))]
 
 def make_image(prof):
-    p_age = keys.translate_string_to_int('Date of Birth', prof['Date of Birth'])
+    p_age = prof['Age']
     p_race = keys.translate_string_to_int('Race', prof['Race'])
     p_gender = keys.translate_string_to_int('Gender', prof['Gender'])
     p_id = (p_age, p_gender, p_race)
@@ -251,8 +251,8 @@ def make_profile():
     
     # Makes the Date of Birth
     dob = make_dob()
-    readable_dob = keys.translate_int_to_string('Date of Birth', dob)
-    profile['Date of Birth'] = readable_dob
+    readable_dob = keys.translate_string_to_int('Date of Birth', keys.translate_int_to_string('Date of Birth', dob))
+    profile['Age'] = readable_dob
 
     # Makes the citizenship
     citz = make_citz()
@@ -265,7 +265,7 @@ def make_profile():
     profile['Education'] = readable_edu
 
     # Makes the gender
-    gen, race = make_race_and_gen(keys.translate_string_to_int('Date of Birth', readable_dob))
+    gen, race = make_race_and_gen(readable_dob)
     readable_gen = keys.translate_int_to_string("Gender", gen)
     profile['Gender'] = readable_gen
 
