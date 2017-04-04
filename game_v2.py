@@ -8,7 +8,7 @@ from even_more_gen import make_profile
 
 NUM_ATTR_TO_REMOVE_ROUND_1 = 5
 
-NUM_ATTR_TO_REMOVE_ROUND_2 = 6
+NUM_ATTR_TO_REMOVE_ROUND_2 = 5
 
 DEPTH = 3
 
@@ -213,7 +213,7 @@ def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num
 	
     if round_num == 5:
 		profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max'], 'File Name': p['File Name']} for p in profs]
-		return profs_5
+		return profs_5#, profs
 	
     return profs
 
@@ -273,3 +273,61 @@ def pre_round_5(profiles, tree_X, tree_y):
 
     return extract_proba(predictions, single_y_flag, single_y_value)
 
+def endgame(profiles, swipes):
+    '''
+    uses two lists of lists of dictionaries in the order of round 1, round 2, round 3, round 4 to determine certain user results
+    '''
+
+    # helps keep track of the results, is a dictionary of dictionaries
+    results = {}
+
+    # stores what attributes made it to the end
+    good = []
+
+    # things in the dictionaries that we don't care about
+    bad = ['Min', 'Max', 'File Name', 'Prediction']
+
+    # adds 1 if we have 1, subtracts 1 otherwise
+    counter_helper = {
+        1 : 1,
+        0 : -1
+    }
+
+    # extracts the info we need
+    for at in profiles[3][0].keys():
+        if not at in bad:
+            good.append(at)
+            results[at] = {}
+
+    #iterating through each round
+    for ind, round_n in enumerate(profiles):
+        #iterating through each profile in each round
+        for ind_2, prof in enumerate(round_n):
+            #iterating through each attribute in each profile
+            for attr, actual in prof.items():
+                if attr == 'Date of Birth':
+                    actual = keys.translate_string_to_int(attr,actual)
+                if attr in results:
+                    if not actual in results[attr]:
+                        results[attr][actual] = counter_helper[swipes[ind][ind_2]]
+                    else:
+                        results[attr][actual] += counter_helper[swipes[ind][ind_2]]
+    
+    return_strings = []
+
+    for attr, counts in results.items():
+        max_name, max_count = '', -1000
+        min_name, min_count = '', 1000
+        for name, count in counts.items():
+            if count >= max_count:
+                max_count = count
+                max_name = name
+            if count <= min_count:
+                min_count = count
+                min_name = name
+        if attr == 'Date of Birth':
+            attr = 'age'
+        return_strings.append('You tend to sentence people with a(n) ' + attr.lower() + ' of ' + str(max_name).lower() + ' harsher.')
+        return_strings.append('You tend to sentence people with a(n) ' + attr.lower() + ' of ' + str(min_name).lower() + ' lighter.')
+
+    return return_strings

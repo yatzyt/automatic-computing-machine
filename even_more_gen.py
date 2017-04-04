@@ -155,7 +155,10 @@ def prior_helper(my_l):
     curr_l = my_l.tolist()
     curr_name, curr_vals = [], []
     for i in curr_l:
-        curr_name.append(int(i[0]))
+        if i[0] == '4+':
+            curr_name.append(4)
+        else:
+            curr_name.append(int(i[0]))
         curr_vals.append(i[1])
     return curr_name, curr_vals
 
