@@ -204,14 +204,13 @@ def pre_round_4(profiles, tree_X, tree_y):
         p['Min'] = temp_min[ind]
         p['Max'] = temp_max[ind]
         p['File Name'] = temp_file_name[ind]    
-    
     return extract_proba(predictions, single_y_flag, single_y_value), imp_ret
 
 def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num=4):
     profs = make_prof(attrs_to_rmv, n_rep)
 
     pred = []
-    int_ret = []
+    imp_ret = []
 
     if round_num == 4:
         pred, imp_ret = pre_round_4(profs, tree_X, tree_y)
@@ -225,8 +224,8 @@ def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num
     if round_num == 5:
 		profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max'], 'File Name': p['File Name']} for p in profs]
 		return profs_5  #, profs
-	
-    return profs, int_ret
+
+    return profs, [imp_ret]
 
 def round_4(profiles, swipes, tree_X, tree_y):
     #assuming client has displayed the profiles, and we have the swipes to work with

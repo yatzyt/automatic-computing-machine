@@ -43,7 +43,7 @@ X, y = round_3(round_3_profs, round_3_swipes)
 #    print "X and y exist\n"
 print 'Round 3 done\n'
 
-round_4_profs, test_tree = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=4)
+round_4_profs, importances = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=4)
 print round_4_profs[0]
 round_4_swipes = make_swipes(big_n)
 X, y = round_4(round_4_profs, round_4_swipes, X, y)
@@ -64,6 +64,6 @@ prof_test = [round_1_profs, round_2_profs, round_3_profs, round_4_profs]
 swip_test = [round_1_swipes, round_2_swipes, round_3_swipes, round_4_swipes]
 
 # this returns a list of strings
-strings_to_send = endgame(prof_test, swip_test)
-for s in strings_to_send:
+importances.append(endgame(prof_test, swip_test))
+for s in importances:
     print s
