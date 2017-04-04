@@ -134,8 +134,11 @@ off_max_times = {
 }
 
 
-def make_times(offense):
-    return off_min_times[offense], off_max_times[offense]
+def make_times(offense, f, v, d, s):
+    max_ret = off_max_times[offense]
+    if not max_ret == 'Life':
+        max_ret += (f+v+d+s) * 4
+    return off_min_times[offense] + (f+v+d+s) * 4, max_ret
 
 def make_race():
     r = make_race_hist()
@@ -287,11 +290,6 @@ def make_profile():
     readable_off = keys.translate_int_to_string("Offense", off)
     profile['Offense'] = readable_off
 
-    # Gives the max and min sentence for the Offense
-    min_time, max_time = make_times(off)
-    profile['Min'] = min_time
-    profile['Max'] = max_time
-    
     # Makes the zipcode
     profile['Zipcode'] = getZipCode(race)
 
@@ -313,5 +311,9 @@ def make_profile():
     # Makes the Prior sex offenses
     profile['Prior sex offenses'] = p_s
 
+    # Gives the max and min sentence for the Offense
+    min_time, max_time = make_times(off, p_f, p_v, p_d, p_s)
+    profile['Min'] = min_time
+    profile['Max'] = max_time
 
     return profile
