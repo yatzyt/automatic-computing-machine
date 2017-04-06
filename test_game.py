@@ -43,7 +43,10 @@ X, y = round_3(round_3_profs, round_3_swipes)
 #    print "X and y exist\n"
 print 'Round 3 done\n'
 
-round_4_profs, importances = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=4)
+### IMPORTANT I MADE CHANGES HERE KEEP TRACK OF IT
+final_package = {}
+
+round_4_profs, final_package['properties'] = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=4)
 print round_4_profs[0]
 round_4_swipes = make_swipes(big_n)
 X, y = round_4(round_4_profs, round_4_swipes, X, y)
@@ -54,7 +57,8 @@ X, y = round_4(round_4_profs, round_4_swipes, X, y)
 print 'Round 4 done\n'
     
 round_5_profs = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=5)
-print round_5_profs[0]
+for r5 in round_5_profs:
+    print r5
 #round_5_swipes = make_swipes(big_n)
 
 print 'Round 5 done\n'
@@ -63,7 +67,6 @@ print 'Round 5 done\n'
 prof_test = [round_1_profs, round_2_profs, round_3_profs, round_4_profs]
 swip_test = [round_1_swipes, round_2_swipes, round_3_swipes, round_4_swipes]
 
-# this returns a list of strings
-importances.append(endgame(prof_test, swip_test))
-for s in importances:
-    print s
+# this is now a dict 
+final_package['finalText'] = endgame(prof_test, swip_test)
+print final_package

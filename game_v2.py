@@ -225,7 +225,7 @@ def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num
 		profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max'], 'File Name': p['File Name']} for p in profs]
 		return profs_5  #, profs
 
-    return profs, [imp_ret]
+    return profs, imp_ret
 
 def round_4(profiles, swipes, tree_X, tree_y):
     #assuming client has displayed the profiles, and we have the swipes to work with
@@ -323,7 +323,7 @@ def endgame(profiles, swipes):
                     else:
                         results[attr][actual] += counter_helper[swipes[ind][ind_2]]
     
-    return_strings = []
+    return_strings = ""
 
     for attr, counts in results.items():
         max_name, max_count = '', -1000
@@ -345,8 +345,8 @@ def endgame(profiles, swipes):
             max_name = max_name[:ged_ind] + max_name[ged_ind:ged_ind+3].upper() + max_name[ged_ind+3:]
         
         if max_count - min_count > 5:
-            return_strings.append('You tend to sentence people with a(n) ' + attr.lower() + ' of ' + max_name + ' harsher, and a(n) '+ attr.lower() + ' of ' + min_name + ' lighter.')
+            return_strings += ('You tend to sentence people with a(n) ' + attr.lower() + ' of ' + max_name + ' harsher, and a(n) '+ attr.lower() + ' of ' + min_name + ' lighter. ')
         else:
-            return_strings.append('You were more or less impartial towards these people\'s ' + attr.lower() +'.')
+            return_strings += ('You were more or less impartial towards these people\'s ' + attr.lower() +'. ')
 
     return return_strings
