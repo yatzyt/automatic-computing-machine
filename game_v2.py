@@ -222,8 +222,8 @@ def make_prof_with_pred(tree_X, tree_y, attrs_to_rmv = None, n_rep=10, round_num
 
 
     if round_num == 5:
-		profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max'], 'File Name': p['File Name']} for p in profs]
-		return profs_5  #, profs
+        profs_5 = [{ 'Prediction': p['Prediction'], 'Min': p['Min'], 'Max': p['Max'], 'File Name': p['File Name'], 'Offense': p['Offense']} for p in profs]
+        return profs_5  #, profs
 
     return profs, imp_ret
 
@@ -279,7 +279,7 @@ def pre_round_5(profiles, tree_X, tree_y):
         p['File Name'] = temp_file_name[ind]
     
     #print profiles[0].keys()
-    export_graphviz(tree, out_file='round5.dot')
+    #export_graphviz(tree, out_file='round5.dot')
 
     return extract_proba(predictions, single_y_flag, single_y_value)
 

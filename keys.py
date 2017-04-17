@@ -36,7 +36,7 @@ offense = {
 1: "Murder",
 2: "Sexual Assault",
 3: "Drug Trafficking",
-4: "Drug Possesion",
+4: "Drug Possession",
 5: "Bribery",
 6: "Vandalism",
 7: "Stalking",
