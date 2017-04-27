@@ -13,9 +13,13 @@ def make_0s(N):
 
 big_n = 10
 
+bigi = 0
+
 # round 1
 round_1_profs = make_prof(n_rep = big_n)
-#print round_1_profs[0]
+for stuff in round_1_profs:
+  print bigi+1, stuff
+  bigi += 1
 round_1_swipes = make_swipes(big_n)
 attr_to_remove = round_1(round_1_profs, round_1_swipes)
 
@@ -25,7 +29,9 @@ attr_to_remove = round_1(round_1_profs, round_1_swipes)
 
 # round 2
 round_2_profs = make_prof(attrs_to_rmv = attr_to_remove, n_rep=big_n)
-#print round_2_profs[0]
+for stuff in round_2_profs:
+  print bigi+1, stuff
+  bigi += 1
 round_2_swipes = make_swipes(big_n)
 attr_to_remove += round_2(round_2_profs, round_2_swipes)
 
@@ -35,7 +41,9 @@ attr_to_remove += round_2(round_2_profs, round_2_swipes)
 # round 3
 
 round_3_profs = make_prof(attrs_to_rmv = attr_to_remove, n_rep=big_n)
-#print round_3_profs[0]
+for stuff in round_3_profs:
+  print bigi+1, stuff
+  bigi += 1
 round_3_swipes = make_swipes(big_n)
 X, y = round_3(round_3_profs, round_3_swipes)
 
@@ -47,7 +55,9 @@ X, y = round_3(round_3_profs, round_3_swipes)
 final_package = {}
 
 round_4_profs, final_package['properties'] = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=4)
-#print round_4_profs
+for stuff in round_4_profs:
+  print bigi+1, stuff
+  bigi += 1
 round_4_swipes = make_swipes(big_n)
 X, y = round_4(round_4_profs, round_4_swipes, X, y)
 
@@ -58,7 +68,8 @@ X, y = round_4(round_4_profs, round_4_swipes, X, y)
     
 round_5_profs = make_prof_with_pred(X, y, attrs_to_rmv = attr_to_remove, n_rep=big_n, round_num=5)
 for r5 in round_5_profs:
-    print r5
+    print bigi+1, r5
+    bigi += 1 
 #round_5_swipes = make_swipes(big_n)
 
 #print 'Round 5 done\n'
